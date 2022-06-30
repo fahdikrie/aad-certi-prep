@@ -23,13 +23,13 @@ class DetailTaskActivity : AppCompatActivity() {
         taskID = intent.getIntExtra(TASK_ID, -1)
         if (taskID == -1) finish()
 
-        val titleTv = findViewById<TextView>(R.id.detail_ed_title)
-        val descriptionTv = findViewById<TextView>(R.id.detail_ed_description)
-        val dateTv = findViewById<TextView>(R.id.detail_ed_due_date)
-
         val factory = ViewModelFactory.getInstance(this)
         detailTaskViewModel = ViewModelProvider(this, factory)[DetailTaskViewModel::class.java]
         detailTaskViewModel.setTaskId(taskID)
+
+        val titleTv = findViewById<TextView>(R.id.detail_ed_title)
+        val descriptionTv = findViewById<TextView>(R.id.detail_ed_description)
+        val dateTv = findViewById<TextView>(R.id.detail_ed_due_date)
 
         detailTaskViewModel.task.observe(this) {
             titleTv.text = it?.title
@@ -40,8 +40,12 @@ class DetailTaskActivity : AppCompatActivity() {
         val deleteBtn = findViewById<Button>(R.id.btn_delete_task)
         deleteBtn.setOnClickListener {
             detailTaskViewModel.deleteTask()
-            Toast.makeText(this, "Task is Deleted", Toast.LENGTH_SHORT).show()
-            super.onBackPressed()
+            Toast.makeText(
+                this,
+                "Task successfully deleted",
+                Toast.LENGTH_SHORT
+            ).show()
+            finish()
         }
     }
 }
