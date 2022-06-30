@@ -48,7 +48,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 addTaskViewModel.insertTask(Task(0, title, description, dueDateMillis))
                 Toast.makeText(
                     this,
-                    "Task successfully added",
+                    "Task successfully added!",
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()

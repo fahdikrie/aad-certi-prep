@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
 import com.dicoding.todoapp.ui.ViewModelFactory
+import com.dicoding.todoapp.utils.DateConverter
 import com.dicoding.todoapp.utils.TASK_ID
 
 class DetailTaskActivity : AppCompatActivity() {
@@ -32,9 +33,9 @@ class DetailTaskActivity : AppCompatActivity() {
         val dateTv = findViewById<TextView>(R.id.detail_ed_due_date)
 
         detailTaskViewModel.task.observe(this) {
-            titleTv.text = it?.title
-            descriptionTv.text = it?.description
-            dateTv.text = it?.dueDateMillis.toString()
+            titleTv.text = it.title
+            descriptionTv.text = it.description
+            dateTv.text = DateConverter.convertMillisToString(it.dueDateMillis)
         }
 
         val deleteBtn = findViewById<Button>(R.id.btn_delete_task)
@@ -42,7 +43,7 @@ class DetailTaskActivity : AppCompatActivity() {
             detailTaskViewModel.deleteTask()
             Toast.makeText(
                 this,
-                "Task successfully deleted",
+                "Task successfully deleted!",
                 Toast.LENGTH_SHORT
             ).show()
             finish()
