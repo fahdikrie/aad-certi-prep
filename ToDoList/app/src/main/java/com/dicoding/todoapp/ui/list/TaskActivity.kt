@@ -54,8 +54,15 @@ class TaskActivity : AppCompatActivity() {
         //TODO 15 : Fixing bug : snackBar not show when task completed
     }
 
-    private fun showRecyclerView(task: PagedList<Task>) {
-        //TODO 7 : Submit pagedList to adapter and update database when onCheckChange
+    private fun showRecyclerView(tasks: PagedList<Task>) {
+        //DONE 7 : Submit pagedList to adapter and update database when onCheckChange
+        val adapter = TaskAdapter { task, completed ->
+            taskViewModel.completeTask(task, completed)
+        }
+
+        adapter.submitList(tasks)
+        adapter.notifyItemRangeInserted(adapter.itemCount, tasks.size)
+        recycler.adapter = adapter
     }
 
     private fun showSnackBar(eventMessage: Event<Int>) {
