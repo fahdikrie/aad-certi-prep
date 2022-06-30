@@ -33,9 +33,9 @@ class DetailTaskActivity : AppCompatActivity() {
         val dateTv = findViewById<TextView>(R.id.detail_ed_due_date)
 
         detailTaskViewModel.task.observe(this) {
-            titleTv.text = it.title
-            descriptionTv.text = it.description
-            dateTv.text = DateConverter.convertMillisToString(it.dueDateMillis)
+            titleTv.text = it?.title
+            descriptionTv.text = it?.description
+            dateTv.text = it?.dueDateMillis?.let { dueDate -> DateConverter.convertMillisToString(dueDate) }
         }
 
         val deleteBtn = findViewById<Button>(R.id.btn_delete_task)
