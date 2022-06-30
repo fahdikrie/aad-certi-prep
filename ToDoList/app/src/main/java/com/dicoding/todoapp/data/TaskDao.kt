@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteQuery
 //DONE 2 : Define data access object (DAO)
 @Dao
 interface TaskDao {
+
     @RawQuery(observedEntities = [Task::class])
     fun getTasks(query: SupportSQLiteQuery): DataSource.Factory<Int, Task>
 
