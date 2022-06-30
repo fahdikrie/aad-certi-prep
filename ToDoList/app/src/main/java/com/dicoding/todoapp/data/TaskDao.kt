@@ -8,19 +8,19 @@ import androidx.sqlite.db.SupportSQLiteQuery
 //DONE 2 : Define data access object (DAO)
 @Dao
 interface TaskDao {
-    @Query("SELECT * from tasks")
+    @RawQuery(observedEntities = [Task::class])
     fun getTasks(query: SupportSQLiteQuery): DataSource.Factory<Int, Task>
 
     @Query("SELECT * from tasks WHERE id = :taskId")
     fun getTaskById(taskId: Int): LiveData<Task>
 
-    @Query("SELECT * from tasks ORDER BY dueDate ASC")
+    @Query("SELECT * from tasks WHERE completed = 0 ORDER BY dueDate ASC")
     fun getNearestActiveTask(): Task
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Task): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg tasks: Task)
 
     @Delete
