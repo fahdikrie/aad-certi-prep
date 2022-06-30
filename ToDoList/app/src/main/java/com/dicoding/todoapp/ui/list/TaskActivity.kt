@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.todoapp.R
 import com.dicoding.todoapp.data.Task
@@ -37,7 +38,11 @@ class TaskActivity : AppCompatActivity() {
             startActivity(addIntent)
         }
 
-        //TODO 6 : Initiate RecyclerView with LayoutManager
+        //DONE 6 : Initiate RecyclerView with LayoutManager
+        recycler = findViewById<RecyclerView?>(R.id.rv_task).apply {
+            layoutManager = LinearLayoutManager(this@TaskActivity)
+            setHasFixedSize(true)
+        }
 
         initAction()
 
