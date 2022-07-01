@@ -30,21 +30,16 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         //DONE 12 : If notification preference on, show notification with pending intent
         if (!shouldNotify) return Result.failure()
 
-//        val intent = Intent(applicationContext, DetailHabitActivity::class.java)
-//        intent.putExtra(HABIT_ID, habitId)
-//        val pendingIntent = PendingIntent.getActivity(
-//            applicationContext,
-//            0,
-//            intent,
-//            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-//        )
-
+        // Reference:
+        // https://stackoverflow.com/a/69524560/13018015
         val intent = Intent(applicationContext, DetailHabitActivity::class.java)
         intent.putExtra(HABIT_ID, habitId)
-        val pendingIntent = TaskStackBuilder.create(applicationContext).run {
-            addNextIntentWithParentStack(intent)
-            getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
