@@ -7,14 +7,19 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.habitapp.R
 import com.dicoding.habitapp.data.Habit
 import com.dicoding.habitapp.ui.ViewModelFactory
 import com.dicoding.habitapp.ui.add.AddHabitActivity
+import com.dicoding.habitapp.ui.detail.DetailHabitActivity
 import com.dicoding.habitapp.utils.Event
+import com.dicoding.habitapp.utils.HABIT_ID
 import com.dicoding.habitapp.utils.HabitSortType
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -34,14 +39,27 @@ class HabitListActivity : AppCompatActivity() {
             startActivity(addIntent)
         }
 
-        //TODO 6 : Initiate RecyclerView with LayoutManager
+        //DONE 6 : Initiate RecyclerView with LayoutManager
+        recycler = findViewById<RecyclerView?>(R.id.rv_habit).apply {
+            layoutManager = GridLayoutManager(this@HabitListActivity, 2)
+            setHasFixedSize(true)
+        }
 
         initAction()
 
         val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory).get(HabitListViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory)[HabitListViewModel::class.java]
 
-        //TODO 7 : Submit pagedList to adapter and add intent to detail
+        //DONE 7 : Submit pagedList to adapter and add intent to detail
+        val adapter = HabitAdapter { habit ->
+            val detailIntent = Intent(this@HabitListActivity, DetailHabitActivity::class.java)
+            detailIntent.putExtra(HABIT_ID, habit.id)
+            startActivity(detailIntent)
+        }
+        recycler.adapter = adapter
+
+        viewModel.habits.observe(this) { adapter.submitList(it) }
+        viewModel.snackbarText.observe(this) { showSnackBar(it) }
     }
 
     //TODO 15 : Fixing bug : Menu not show and SnackBar not show when list is deleted using swipe
