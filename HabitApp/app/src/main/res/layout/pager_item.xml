@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="36sp"
+            android:gravity="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
