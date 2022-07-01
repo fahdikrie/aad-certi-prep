@@ -17,7 +17,7 @@ import com.dicoding.courseschedule.util.DayName
 import com.dicoding.courseschedule.util.QueryType
 import com.dicoding.courseschedule.util.timeDifference
 
-//TODO 15 : Write UI test to validate when user tap Add Course (+) Menu, the AddCourseActivity is displayed
+//DONE 15 : Write UI test to validate when user tap Add Course (+) Menu, the AddCourseActivity is displayed
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var viewModel: HomeViewModel
@@ -46,7 +46,13 @@ class HomeActivity : AppCompatActivity() {
             val remainingTime = timeDifference(day, startTime)
 
             val cardHome = findViewById<CardHomeView>(R.id.view_home)
-
+            cardHome.apply {
+                setCourseName(course.courseName)
+                setTime(time)
+                setLecturer(course.lecturer)
+                setNote(course.note)
+                setRemainingTime(remainingTime)
+            }
         }
 
         findViewById<TextView>(R.id.tv_empty_home).visibility =
