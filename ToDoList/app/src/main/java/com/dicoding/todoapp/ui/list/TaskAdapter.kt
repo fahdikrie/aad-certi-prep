@@ -21,8 +21,8 @@ class TaskAdapter(
 
     //DONE 8 : Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val task = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
-        return TaskViewHolder(task)
+        val taskView = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        return TaskViewHolder(taskView)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {

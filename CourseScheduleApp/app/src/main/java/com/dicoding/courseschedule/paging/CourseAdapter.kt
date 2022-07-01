@@ -24,8 +24,8 @@ class CourseAdapter(private val clickListener: (Course) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
-        val course = LayoutInflater.from(parent.context).inflate(R.layout.item_course, parent, false)
-        return CourseViewHolder(course)
+        val courseView = LayoutInflater.from(parent.context).inflate(R.layout.item_course, parent, false)
+        return CourseViewHolder(courseView)
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder, position: Int) {
