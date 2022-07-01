@@ -63,6 +63,7 @@ class DailyReminder : BroadcastReceiver() {
             pendingIntent
         )
 
+        Log.d("DailyReminder", "Alarm enabled")
         Toast.makeText(
             context,
             "Reminder is now set at $REMINDER_TIME everyday",
@@ -84,6 +85,7 @@ class DailyReminder : BroadcastReceiver() {
 
         alarmManager.cancel(pendingIntent)
 
+        Log.d("DailyReminder", "Alarm disabled")
         Toast.makeText(
             context,
             "Reminder is now cancelled",
@@ -105,7 +107,7 @@ class DailyReminder : BroadcastReceiver() {
             context,
             NOTIFICATION_ID,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -133,10 +135,11 @@ class DailyReminder : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        Log.d("DailyReminder", "Show notification")
         notificationManager.notify(ID_REPEATING, notification.build())
     }
 
     companion object {
-        private const val REMINDER_TIME = "17:28"
+        private const val REMINDER_TIME = "17:53"
     }
 }
