@@ -42,8 +42,8 @@ class SettingsActivity : AppCompatActivity() {
 
                 val periodicWorkRequest = PeriodicWorkRequest.Builder(
                     NotificationWorker::class.java,
-                    30,
-                    TimeUnit.MINUTES
+                    1,
+                    TimeUnit.DAYS
                 )
                     .setInputData(data)
                     .build()
