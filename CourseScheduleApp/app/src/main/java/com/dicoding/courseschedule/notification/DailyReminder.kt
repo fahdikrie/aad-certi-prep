@@ -56,7 +56,7 @@ class DailyReminder : BroadcastReceiver() {
             PendingIntent.FLAG_IMMUTABLE,
         )
 
-        alarmManager.setRepeating(
+        alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,
@@ -140,6 +140,6 @@ class DailyReminder : BroadcastReceiver() {
     }
 
     companion object {
-        private const val REMINDER_TIME = "17:53"
+        private const val REMINDER_TIME = "06:00"
     }
 }
