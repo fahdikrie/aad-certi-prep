@@ -6,6 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dicoding.habitapp.utils.HabitSortType
 import com.dicoding.habitapp.utils.SortUtils
+import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -49,7 +50,11 @@ class HabitRepository(private val habitDao: HabitDao, private val executor: Exec
     }
 
     fun insertHabit(newHabit: Habit): Long {
-        return habitDao.insertHabit(habit = newHabit)
+        // Resource:
+        // From Bangkit #md-channel discussion
+        val insHabit = Callable { habitDao.insertHabit(newHabit) }
+        val executorHabit = executor.submit(insHabit)
+        return executorHabit.get()
     }
 
     fun deleteHabit(habit: Habit) {

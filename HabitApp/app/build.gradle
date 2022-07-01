@@ -46,7 +46,9 @@ dependencies {
         espresso_version = '3.4.0'
         runner_version = '1.2.0'
 
-        room_version = "2.4.2"
+        // NOTE: Changing Room version to 2.4.0-alpha03
+        // due to compatibility issue w/ Apple M1 Chip
+        room_version = "2.4.0-alpha03"
         arch_lifecycle_version = '2.4.1'
         lifecycle_version = "2.4.1"
         work_version = "2.7.1"
