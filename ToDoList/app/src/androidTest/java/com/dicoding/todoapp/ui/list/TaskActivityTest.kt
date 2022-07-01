@@ -14,6 +14,8 @@ import org.junit.Test
 
 //DONE 16 : Write UI test to validate when user tap Add Task (+), the AddTaskActivity displayed
 class TaskActivityTest {
+    // Reference:
+    // https://stackoverflow.com/questions/25998659/espresso-how-can-i-check-if-an-activity-is-launched-after-performing-a-certain
     @Before
     fun setUp(){
         ActivityScenario.launch(TaskActivity::class.java)
