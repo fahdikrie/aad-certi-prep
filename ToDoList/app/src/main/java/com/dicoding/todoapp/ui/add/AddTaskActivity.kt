@@ -44,6 +44,15 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 val title = findViewById<EditText>(R.id.add_ed_title).text.toString()
                 val description = findViewById<EditText>(R.id.add_ed_description).text.toString()
 
+                if (title.isBlank() || description.isBlank()) {
+                    Toast.makeText(
+                        this,
+                        "Please complete form before saving",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return false
+                }
+
                 addTaskViewModel.insertTask(Task(0, title, description, dueDateMillis))
                 Toast.makeText(
                     this,
@@ -51,8 +60,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
-
-                true
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }

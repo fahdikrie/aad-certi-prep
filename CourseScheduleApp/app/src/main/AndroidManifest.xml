@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.add.AddCourseActivity"
             android:label="@string/add_course"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.detail.DetailActivity"
             android:label="@string/detail"
@@ -43,7 +43,7 @@
         <receiver
             android:name=".notification.DailyReminder"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
     </application>
 
 </manifest>

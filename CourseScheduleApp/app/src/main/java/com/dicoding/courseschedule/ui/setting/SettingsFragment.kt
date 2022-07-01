@@ -22,9 +22,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 "on" -> updateTheme(NightMode.ON.value)
                 "off" -> updateTheme(NightMode.OFF.value)
                 "auto" -> updateTheme(NightMode.AUTO.value)
-                else -> {}
             }
-            return@setOnPreferenceChangeListener true
+            true
         }
 
         //DONE 11 : Schedule and cancel notification in DailyReminder based on SwitchPreference
@@ -34,9 +33,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             when (newValue) {
                 true -> context?.let { dailyReminder.setDailyReminder(it) }
                 false -> context?.let { dailyReminder.cancelAlarm(it) }
-                else -> {}
             }
-            return@setOnPreferenceChangeListener true
+            true
         }
     }
 

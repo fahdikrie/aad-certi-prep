@@ -2,7 +2,6 @@ package com.dicoding.courseschedule.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dicoding.courseschedule.util.QueryType
@@ -32,7 +31,9 @@ class DataRepository(private val dao: CourseDao) {
     }
 
     fun getTodaySchedule() : List<Course> {
-        return dao.getTodaySchedule(Calendar.DAY_OF_WEEK)
+        val date = Calendar.getInstance()
+        val today = date.get(Calendar.DAY_OF_WEEK)
+        return dao.getTodaySchedule(today)
     }
 
     fun insert(course: Course) = executeThread {

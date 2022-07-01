@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
@@ -46,13 +47,16 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         }
 
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification: NotificationCompat.Builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(nearestActiveTask.title)
             .setContentText("Due in ${DateConverter.convertMillisToString(nearestActiveTask.dueDateMillis)}.")
             .setContentIntent(getPendingIntent(nearestActiveTask))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
+            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+            .setSound(alarmSound)
             .setAutoCancel(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -61,12 +65,13 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
                 channelName,
                 NotificationManager.IMPORTANCE_HIGH
             )
+            channel.enableVibration(true)
+            channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
             notification.setChannelId(NOTIFICATION_CHANNEL_ID)
             notificationManager.createNotificationChannel(channel)
         }
 
         notificationManager.notify(0, notification.build())
-
         return Result.success()
     }
 

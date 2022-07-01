@@ -57,6 +57,16 @@ class AddCourseActivity : AppCompatActivity(), TimePickerFragment.DialogTimeList
                 val lecturer = findViewById<EditText>(R.id.ed_lecturer).text.toString()
                 val note = findViewById<EditText>(R.id.ed_note).text.toString()
 
+                if (courseName.isBlank() || lecturer.isBlank() || note.isBlank()) {
+                    Toast.makeText(
+                        this,
+                        "Please complete form before saving",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    return false
+                }
+
                 addCourseViewModel.insertCourse(
                     courseName,
                     day,
@@ -85,7 +95,7 @@ class AddCourseActivity : AppCompatActivity(), TimePickerFragment.DialogTimeList
                     }
                 }
 
-                true
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }
