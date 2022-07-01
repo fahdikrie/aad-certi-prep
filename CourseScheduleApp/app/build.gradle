@@ -41,7 +41,9 @@ dependencies {
         appcompat_version = "1.4.2"
         constraint_version = "2.1.4"
         material_version = "1.6.1"
-        room_version = "2.4.2"
+        // NOTE: Changing Room version to 2.4.0-alpha03
+        // due to compatibility issue w/ Apple M1 Chip
+        room_version = "2.4.0-alpha03"
         paging_version = "2.1.2"
         lifecycle_version = "2.4.1"
         preference_version = "1.2.0"
