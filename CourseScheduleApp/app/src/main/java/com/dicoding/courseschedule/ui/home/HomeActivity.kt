@@ -55,7 +55,12 @@ class HomeActivity : AppCompatActivity() {
         course.apply {
             val dayName = DayName.getByNumber(day)
             val time = String.format(getString(R.string.time_format), dayName, startTime, endTime)
-            val remainingTime = timeDifference(day, startTime)
+            var remainingTime = timeDifference(day, startTime)
+
+            // A very hacky and extremely ugly modification
+            // Tapi takut malah kena masalah kalau ubah-ubah
+            // boilerplate code :D
+            if (remainingTime == "(In 7 days)") remainingTime = "(Today)"
 
             cardHome.apply {
                 setCourseName(course.courseName)
