@@ -40,6 +40,7 @@ class HabitAdapter(
             tvTitle.text = habit.title
             tvStartTime.text = habit.startTime
             tvMinutes.text = habit.minutesFocus.toString()
+
             itemView.setOnClickListener {
                 onClick(habit)
             }

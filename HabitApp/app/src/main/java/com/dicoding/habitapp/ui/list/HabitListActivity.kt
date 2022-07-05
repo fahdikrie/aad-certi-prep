@@ -7,11 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.habitapp.R
 import com.dicoding.habitapp.data.Habit
@@ -42,10 +40,9 @@ class HabitListActivity : AppCompatActivity() {
         }
 
         //DONE 6 : Initiate RecyclerView with LayoutManager
-        recycler = findViewById<RecyclerView?>(R.id.rv_habit).apply {
-            layoutManager = GridLayoutManager(this@HabitListActivity, 2)
-            setHasFixedSize(true)
-        }
+        recycler = findViewById(R.id.rv_habit)
+        recycler.setHasFixedSize(true)
+        recycler.layoutManager = GridLayoutManager(this, 2)
 
         initAction()
 
@@ -54,13 +51,15 @@ class HabitListActivity : AppCompatActivity() {
 
         //DONE 7 : Submit pagedList to adapter and add intent to detail
         val adapter = HabitAdapter { habit ->
-            val detailIntent = Intent(this@HabitListActivity, DetailHabitActivity::class.java)
-            detailIntent.putExtra(HABIT_ID, habit.id)
-            startActivity(detailIntent)
+            val intent = Intent(this, DetailHabitActivity::class.java)
+            intent.putExtra(HABIT_ID, habit.id)
+            startActivity(intent)
         }
-        recycler.adapter = adapter
 
         viewModel.habits.observe(this) { adapter.submitList(it) }
+
+        recycler.adapter = adapter
+
         viewModel.snackbarText.observe(this) { showSnackBar(it) }
     }
 

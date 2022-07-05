@@ -20,6 +20,8 @@ class HomeViewModel(private val repository: DataRepository): ViewModel() {
         _queryType.value = queryType
     }
 
+    // Reference:
+    // https://www.dicoding.com/academies/287/discussions/121050?#comment-321685
     fun getNearestSchedule(queryType: QueryType): LiveData<Course?> {
         val nearestCourse = Transformations.switchMap(MutableLiveData(queryType)) {
             repository.getNearestSchedule(it)

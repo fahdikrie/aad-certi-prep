@@ -1,6 +1,7 @@
 package com.dicoding.habitapp.data
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -31,20 +32,24 @@ abstract class HabitDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): HabitDatabase {
             return INSTANCE ?: synchronized(this) {
+                Log.d("HabitApp", "Initiating database")
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     HabitDatabase::class.java,
                     "habit.db"
-                ).addCallback(object : Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                        INSTANCE?.let {
-                            Executors.newSingleThreadExecutor().execute {
-                                fillWithStartingData(context.applicationContext, it.habitDao())
+                )
+                    .fallbackToDestructiveMigration()
+                    .addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            INSTANCE?.let {
+                                Executors.newSingleThreadExecutor().execute {
+                                    fillWithStartingData(context.applicationContext, it.habitDao())
+                                }
                             }
+                            Log.d("HabitApp", "Prepopulate database with habit.json")
                         }
-                    }
-                }).build()
+                    }).build()
                 INSTANCE = instance
                 return instance
             }

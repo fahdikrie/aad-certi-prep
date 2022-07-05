@@ -57,9 +57,9 @@ class HomeActivity : AppCompatActivity() {
             val time = String.format(getString(R.string.time_format), dayName, startTime, endTime)
             var remainingTime = timeDifference(day, startTime)
 
-            // A very hacky and extremely ugly modification
-            // Tapi takut malah kena masalah kalau ubah-ubah
-            // boilerplate code :D
+            // A very hacky and extremely poor modification
+            // tapi takut malah kena masalah kalau ubah-ubah
+            // boilerplate code query, jadi diimplementasikan di sini
             if (remainingTime == "(In 7 days)") remainingTime = "(Today)"
 
             cardHome.apply {
