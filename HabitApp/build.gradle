@@ -2,7 +2,7 @@
 buildscript {
     // NOTE: Changing kotlin version based on this
     // https://stackoverflow.com/questions/70104556/android-room-kotlin-throws-delete-query-error
-    ext.kotlin_version = "1.5.31"
+    ext.kotlin_version = "1.7.0"
     repositories {
         google()
         mavenCentral()

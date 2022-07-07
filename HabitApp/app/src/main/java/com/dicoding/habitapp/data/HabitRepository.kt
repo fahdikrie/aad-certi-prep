@@ -14,7 +14,7 @@ class HabitRepository(private val habitDao: HabitDao, private val executor: Exec
 
     companion object {
 
-        private const val PAGE_SIZE = 10
+        private const val PAGE_SIZE = 30
 
         @Volatile
         private var instance: HabitRepository? = null
